@@ -1,0 +1,203 @@
+{
+  "keyboards": [
+    {
+      "id": "kb-001",
+      "name": "Keychron K2 Wireless Mechanical Keyboard",
+      "category": "keyboard",
+      "brand": "Keychron",
+      "price": 89,
+      "image_url": "https://via.placeholder.com/200x150?text=Keychron+K2",
+      "attributes": {
+        "switch_type": "Gateron Brown",
+        "noise_level": "medium-quiet",
+        "wireless": true,
+        "style": "minimalist",
+        "eco_score": 0.7,
+        "rgb": true
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/kb-001?ref=personashop_demo"
+    },
+    {
+      "id": "kb-002",
+      "name": "Logitech MX Keys",
+      "category": "keyboard",
+      "brand": "Logitech",
+      "price": 99,
+      "image_url": "https://via.placeholder.com/200x150?text=Logitech+MX+Keys",
+      "attributes": {
+        "switch_type": "scissor",
+        "noise_level": "very-quiet",
+        "wireless": true,
+        "style": "professional",
+        "eco_score": 0.6,
+        "rgb": false
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/kb-002?ref=personashop_demo"
+    },
+    {
+      "id": "kb-003",
+      "name": "Royal Kludge RK61",
+      "category": "keyboard",
+      "brand": "Royal Kludge",
+      "price": 55,
+      "image_url": "https://via.placeholder.com/200x150?text=RK61",
+      "attributes": {
+        "switch_type": "mechanical",
+        "noise_level": "medium",
+        "wireless": true,
+        "style": "compact",
+        "eco_score": 0.5,
+        "rgb": true
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/kb-003?ref=personashop_demo"
+    },
+    {
+      "id": "kb-004",
+      "name": "Ducky One 2 Mini Silent",
+      "category": "keyboard",
+      "brand": "Ducky",
+      "price": 95,
+      "image_url": "https://via.placeholder.com/200x150?text=Ducky+One+2",
+      "attributes": {
+        "switch_type": "Cherry MX Silent Red",
+        "noise_level": "very-quiet",
+        "wireless": false,
+        "style": "minimalist",
+        "eco_score": 0.8,
+        "rgb": false
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/kb-004?ref=personashop_demo"
+    },
+    {
+      "id": "kb-005",
+      "name": "Redragon K552 RGB",
+      "category": "keyboard",
+      "brand": "Redragon",
+      "price": 42,
+      "image_url": "https://via.placeholder.com/200x150?text=Redragon+K552",
+      "attributes": {
+        "switch_type": "mechanical",
+        "noise_level": "loud",
+        "wireless": false,
+        "style": "gamer",
+        "eco_score": 0.4,
+        "rgb": true
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/kb-005?ref=personashop_demo"
+    }
+  ],
+  "chairs": [
+    {
+      "id": "ch-001",
+      "name": "Herman Miller Aeron (Refurbished)",
+      "category": "chair",
+      "brand": "Herman Miller",
+      "price": 650,
+      "image_url": "https://via.placeholder.com/200x150?text=Herman+Miller+Aeron",
+      "attributes": {
+        "material": "mesh",
+        "ergonomic": true,
+        "style": "professional",
+        "eco_score": 0.9,
+        "warranty_years": 5
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/ch-001?ref=personashop_demo"
+    },
+    {
+      "id": "ch-002",
+      "name": "IKEA Markus",
+      "category": "chair",
+      "brand": "IKEA",
+      "price": 199,
+      "image_url": "https://via.placeholder.com/200x150?text=IKEA+Markus",
+      "attributes": {
+        "material": "fabric",
+        "ergonomic": true,
+        "style": "minimalist",
+        "eco_score": 0.7,
+        "warranty_years": 10
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/ch-002?ref=personashop_demo"
+    },
+    {
+      "id": "ch-003",
+      "name": "Secretlab Titan",
+      "category": "chair",
+      "brand": "Secretlab",
+      "price": 449,
+      "image_url": "https://via.placeholder.com/200x150?text=Secretlab+Titan",
+      "attributes": {
+        "material": "leather",
+        "ergonomic": true,
+        "style": "gamer",
+        "eco_score": 0.5,
+        "warranty_years": 3
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/ch-003?ref=personashop_demo"
+    }
+  ],
+  "monitors": [
+    {
+      "id": "mon-001",
+      "name": "Dell UltraSharp U2723DE",
+      "category": "monitor",
+      "brand": "Dell",
+      "price": 549,
+      "image_url": "https://via.placeholder.com/200x150?text=Dell+UltraSharp",
+      "attributes": {
+        "size": "27 inch",
+        "resolution": "2K",
+        "refresh_rate": "60Hz",
+        "panel_type": "IPS",
+        "eco_score": 0.8,
+        "style": "professional"
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/mon-001?ref=personashop_demo"
+    },
+    {
+      "id": "mon-002",
+      "name": "LG 27GL850-B",
+      "category": "monitor",
+      "brand": "LG",
+      "price": 399,
+      "image_url": "https://via.placeholder.com/200x150?text=LG+27GL850",
+      "attributes": {
+        "size": "27 inch",
+        "resolution": "2K",
+        "refresh_rate": "144Hz",
+        "panel_type": "Nano IPS",
+        "eco_score": 0.7,
+        "style": "gamer"
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/mon-002?ref=personashop_demo"
+    },
+    {
+      "id": "mon-003",
+      "name": "AOC 24G2",
+      "category": "monitor",
+      "brand": "AOC",
+      "price": 179,
+      "image_url": "https://via.placeholder.com/200x150?text=AOC+24G2",
+      "attributes": {
+        "size": "24 inch",
+        "resolution": "1080p",
+        "refresh_rate": "144Hz",
+        "panel_type": "IPS",
+        "eco_score": 0.6,
+        "style": "budget"
+      },
+      "source_store": "DemoStore",
+      "url": "https://store.example/product/mon-003?ref=personashop_demo"
+    }
+  ]
+}
