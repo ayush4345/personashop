@@ -3,9 +3,15 @@
  * 
  * This service integrates with Raindrop's SmartComponents:
  * - SmartSQL: Structured data storage (users, personas, products, sessions, feedback)
+ *   Docs: https://docs.liquidmetal.ai/reference/smartsql/
  * - SmartMemory: Natural language persona summaries
+ *   Docs: https://docs.liquidmetal.ai/reference/smartmemory/
  * - SmartBuckets: Product catalog storage
+ *   Docs: https://docs.liquidmetal.ai/reference/smartbucket/
  * - SmartInference: AI agent logic for parsing, ranking, and updates
+ * 
+ * NOTE: This is currently a SIMULATED integration for demo purposes.
+ * See RAINDROP_INTEGRATION.md for instructions on connecting to actual Raindrop services.
  */
 
 import { PersonaPreferences, PersonaMemory, Product, ParsedRequest, RecommendationResult } from '../types';
@@ -214,11 +220,11 @@ class RaindropService {
   // Helper methods
   private extractCategory(query: string): string {
     const lowerQuery = query.toLowerCase();
-    if (lowerQuery.includes('keyboard')) return 'keyboards';
-    if (lowerQuery.includes('chair')) return 'chairs';
-    if (lowerQuery.includes('monitor') || lowerQuery.includes('screen')) return 'monitors';
-    if (lowerQuery.includes('desk')) return 'desks';
-    if (lowerQuery.includes('mouse')) return 'mice';
+    if (lowerQuery.includes('keyboard')) return 'keyboard';
+    if (lowerQuery.includes('chair')) return 'chair';
+    if (lowerQuery.includes('monitor') || lowerQuery.includes('screen')) return 'monitor';
+    if (lowerQuery.includes('desk')) return 'desk';
+    if (lowerQuery.includes('mouse')) return 'mouse';
     return 'general';
   }
 

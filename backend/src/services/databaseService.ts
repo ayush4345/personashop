@@ -7,6 +7,11 @@
  * - products table
  * - sessions table
  * - feedback table
+ * 
+ * Raindrop SmartSQL Documentation: https://docs.liquidmetal.ai/reference/smartsql/
+ * 
+ * NOTE: This is currently an IN-MEMORY simulation for demo purposes.
+ * See RAINDROP_INTEGRATION.md for instructions on connecting to actual Raindrop SmartSQL.
  */
 
 import { v4 as uuidv4 } from 'uuid';
@@ -124,11 +129,11 @@ class DatabaseService {
     }
 
     if (filters.maxPrice !== undefined) {
-      results = results.filter(p => p.price <= filters.maxPrice);
+      results = results.filter(p => p.price <= filters.maxPrice!);
     }
 
     if (filters.minPrice !== undefined) {
-      results = results.filter(p => p.price >= filters.minPrice);
+      results = results.filter(p => p.price >= filters.minPrice!);
     }
 
     return results;

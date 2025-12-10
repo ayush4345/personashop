@@ -152,14 +152,16 @@ NEXT_PUBLIC_API_URL=https://api.personashop.com
 
 ### 1. Create Raindrop Project
 ```bash
-# Visit Raindrop dashboard
+# Visit https://liquidmetal.ai
 # Create new project: "personashop"
 # Note your API key and project ID
+# Documentation: https://docs.liquidmetal.ai/reference/smartsql/
 ```
 
 ### 2. Initialize SmartSQL Schema
 ```sql
 -- Run this in Raindrop SmartSQL console
+-- Documentation: https://docs.liquidmetal.ai/reference/smartsql/
 
 CREATE TABLE users (
     id UUID PRIMARY KEY,
@@ -212,6 +214,7 @@ CREATE TABLE feedback (
 ### 3. Upload Product Catalog to SmartBuckets
 ```bash
 # Use Raindrop CLI or dashboard
+# Documentation: https://docs.liquidmetal.ai/reference/smartbucket/
 raindrop buckets upload backend/src/data/products.json personashop-products
 ```
 
