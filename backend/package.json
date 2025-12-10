@@ -9,7 +9,13 @@
     "start": "node dist/index.js",
     "test": "echo \"Tests coming soon\" && exit 0"
   },
-  "keywords": ["ai", "shopping", "personalization", "raindrop", "vultr"],
+  "keywords": [
+    "ai",
+    "shopping",
+    "personalization",
+    "raindrop",
+    "vultr"
+  ],
   "author": "PersonaShop Team",
   "license": "MIT",
   "dependencies": {

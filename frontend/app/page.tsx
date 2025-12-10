@@ -2,6 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Badge } from '@/components/ui/badge';
+import { Sparkles, ShoppingBag, Zap } from 'lucide-react';
 
 export default function Home() {
   const router = useRouter();
@@ -53,18 +59,27 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                PersonaShop
-              </h1>
-              <p className="text-sm text-gray-500 mt-1">AI Shopping Copilot that learns your taste</p>
+            <div className="flex items-center gap-3">
+              <ShoppingBag className="w-8 h-8 text-primary" />
+              <div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  PersonaShop
+                </h1>
+                <p className="text-xs text-muted-foreground">AI Shopping Copilot that learns your taste</p>
+              </div>
             </div>
-            <div className="text-right text-xs text-gray-500">
-              <div>Powered by <span className="font-semibold text-blue-600">Raindrop MCP</span></div>
-              <div>Hosted on <span className="font-semibold text-purple-600">Vultr</span></div>
+            <div className="flex gap-2">
+              <Badge variant="secondary" className="hidden sm:flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                Raindrop MCP
+              </Badge>
+              <Badge variant="outline" className="hidden sm:flex items-center gap-1">
+                <Zap className="w-3 h-3" />
+                Vultr
+              </Badge>
             </div>
           </div>
         </div>
@@ -72,157 +87,170 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="max-w-3xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-3">
-              Welcome to PersonaShop! 🛍️
-            </h2>
-            <p className="text-lg text-gray-600">
+        <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur">
+          <CardHeader className="text-center pb-4">
+            <div className="mx-auto w-16 h-16 bg-gradient-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+              <ShoppingBag className="w-8 h-8 text-white" />
+            </div>
+            <CardTitle className="text-3xl">Welcome to PersonaShop!</CardTitle>
+            <CardDescription className="text-base mt-2">
               Let&apos;s create your shopping persona so I can find the perfect products for you
-            </p>
-          </div>
+            </CardDescription>
+          </CardHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Basic Info */}
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Your Name
-                </label>
-                <input
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Basic Info */}
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Your Name</Label>
+                  <Input
+                    id="name"
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="Enter your name"
+                    className="h-11"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="your.email@example.com"
+                    className="h-11"
+                  />
+                </div>
+              </div>
+
+              {/* Budget Comfort */}
+              <div className="space-y-3">
+                <Label>What&apos;s your budget comfort zone?</Label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[
+                    { value: 'low', label: 'Budget', emoji: '💰' },
+                    { value: 'medium', label: 'Moderate', emoji: '💳' },
+                    { value: 'high', label: 'Premium', emoji: '💎' }
+                  ].map((level) => (
+                    <Button
+                      key={level.value}
+                      type="button"
+                      variant={formData.budgetComfort === level.value ? "default" : "outline"}
+                      onClick={() => setFormData({ ...formData, budgetComfort: level.value })}
+                      className="h-auto py-3 flex-col gap-1"
+                    >
+                      <span className="text-xl">{level.emoji}</span>
+                      <span className="text-xs">{level.label}</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Priorities */}
+              <div className="space-y-3">
+                <Label>What matters most to you? (Select all that apply)</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    { key: 'price', label: 'Best Price', emoji: '💵' },
+                    { key: 'quality', label: 'High Quality', emoji: '⭐' },
+                    { key: 'brand', label: 'Brand Names', emoji: '🏷️' },
+                    { key: 'sustainability', label: 'Eco-Friendly', emoji: '🌱' },
+                    { key: 'shipping', label: 'Fast Shipping', emoji: '🚚' }
+                  ].map((priority) => (
+                    <Button
+                      key={priority.key}
+                      type="button"
+                      variant={formData.priorities.includes(priority.key) ? "default" : "outline"}
+                      onClick={() => handlePriorityToggle(priority.key)}
+                      className="h-auto py-3 justify-start gap-2"
+                    >
+                      <span>{priority.emoji}</span>
+                      <span className="text-xs">{priority.label}</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Style Description */}
+              <div className="space-y-2">
+                <Label htmlFor="style">Describe your style (optional)</Label>
+                <Input
+                  id="style"
                   type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="Enter your name"
+                  value={formData.styleDescription}
+                  onChange={(e) => setFormData({ ...formData, styleDescription: e.target.value })}
+                  placeholder="e.g., minimalist, gamer, professional"
+                  className="h-11"
                 />
+                <p className="text-xs text-muted-foreground">
+                  Examples: minimalist, gamer, professional, eco-conscious, techy
+                </p>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                  placeholder="your.email@example.com"
-                />
-              </div>
-            </div>
+              {/* Submit Button */}
+              <Button
+                type="submit"
+                disabled={loading}
+                className="w-full h-12 text-base font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                size="lg"
+              >
+                {loading ? (
+                  <>
+                    <Sparkles className="w-4 h-4 animate-spin mr-2" />
+                    Creating Your Persona...
+                  </>
+                ) : (
+                  <>
+                    Start Shopping
+                    <ShoppingBag className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </form>
 
-            {/* Budget Comfort */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                What&apos;s your budget comfort zone?
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                {['low', 'medium', 'high'].map((level) => (
-                  <button
-                    key={level}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, budgetComfort: level })}
-                    className={`py-3 px-4 rounded-lg border-2 transition-all ${
-                      formData.budgetComfort === level
-                        ? 'border-purple-600 bg-purple-50 text-purple-700 font-semibold'
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
-                  >
-                    {level === 'low' && '💰 Budget'}
-                    {level === 'medium' && '💳 Moderate'}
-                    {level === 'high' && '💎 Premium'}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Priorities */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                What matters most to you? (Select all that apply)
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { key: 'price', label: '💵 Best Price', icon: '💵' },
-                  { key: 'quality', label: '⭐ High Quality', icon: '⭐' },
-                  { key: 'brand', label: '🏷️ Brand Names', icon: '🏷️' },
-                  { key: 'sustainability', label: '🌱 Eco-Friendly', icon: '🌱' },
-                  { key: 'shipping', label: '🚚 Fast Shipping', icon: '🚚' }
-                ].map((priority) => (
-                  <button
-                    key={priority.key}
-                    type="button"
-                    onClick={() => handlePriorityToggle(priority.key)}
-                    className={`py-3 px-4 rounded-lg border-2 transition-all text-left ${
-                      formData.priorities.includes(priority.key)
-                        ? 'border-purple-600 bg-purple-50 text-purple-700 font-semibold'
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
-                  >
-                    {priority.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Style Description */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Describe your style in a few words (optional)
-              </label>
-              <input
-                type="text"
-                value={formData.styleDescription}
-                onChange={(e) => setFormData({ ...formData, styleDescription: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                placeholder="e.g., minimalist, gamer, professional, eco-conscious"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Examples: minimalist, gamer, professional, eco-conscious, techy
+            {/* Info Box */}
+            <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+              <p className="text-sm text-blue-900">
+                <strong className="flex items-center gap-1">
+                  <Sparkles className="w-4 h-4" />
+                  Privacy First:
+                </strong>
+                <span className="text-blue-800 mt-1 block">
+                  Your persona is stored securely and only used to improve your shopping experience.
+                  Powered by Raindrop SmartMemory for intelligent personalization.
+                </span>
               </p>
             </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-blue-600 text-white py-4 rounded-lg font-semibold text-lg hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
-            >
-              {loading ? 'Creating Your Persona...' : 'Start Shopping 🚀'}
-            </button>
-          </form>
-
-          {/* Info Box */}
-          <div className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-sm text-blue-800">
-              <strong>🔒 Privacy First:</strong> Your persona is stored securely and only used to improve your shopping experience.
-              Powered by Raindrop SmartMemory for intelligent personalization.
-            </p>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Business Model Info */}
-        <div className="mt-8 text-center">
-          <a href="/merchant" className="text-sm text-gray-600 hover:text-purple-600 underline">
-            Are you a merchant? Learn about PersonaShop for Business
-          </a>
+        <div className="mt-6 text-center">
+          <Button variant="link" asChild className="text-muted-foreground hover:text-primary">
+            <a href="/merchant">
+              Are you a merchant? Learn about PersonaShop for Business →
+            </a>
+          </Button>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 mt-12">
-        <div className="text-center text-sm text-gray-500 space-y-2">
-          <div className="flex justify-center items-center gap-4 flex-wrap">
-            <span>🌩️ Infrastructure: <strong>Vultr</strong></span>
-            <span>•</span>
-            <span>🧠 AI Engine: <strong>Raindrop MCP</strong></span>
-            <span>•</span>
-            <span>⚡ Frontend: <strong>Next.js + Cloudflare</strong></span>
+      <footer className="mt-12 py-8 border-t bg-white/50 backdrop-blur">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex items-center gap-3 flex-wrap justify-center text-sm text-muted-foreground">
+              <Badge variant="outline">🌩️ Vultr</Badge>
+              <Badge variant="outline">🧠 Raindrop MCP</Badge>
+              <Badge variant="outline">⚡ Next.js + Cloudflare</Badge>
+            </div>
+            <p className="text-xs text-muted-foreground">PersonaShop - Your AI Shopping Copilot</p>
           </div>
-          <p className="mt-2">PersonaShop - Your AI Shopping Copilot</p>
         </div>
       </footer>
     </div>

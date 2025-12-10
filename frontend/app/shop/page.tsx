@@ -2,6 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import { Search, ShoppingBag, Sparkles, ThumbsUp, DollarSign, Frown, Tag, Leaf, ExternalLink, Lightbulb } from 'lucide-react';
 
 interface Product {
   id: string;
@@ -104,18 +110,22 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-200">
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                PersonaShop
-              </h1>
-              <p className="text-sm text-gray-500">Welcome back, {userName}! 👋</p>
+            <div className="flex items-center gap-3">
+              <ShoppingBag className="w-8 h-8 text-primary" />
+              <div>
+                <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                  PersonaShop
+                </h1>
+                <p className="text-xs text-muted-foreground">Welcome back, {userName}! 👋</p>
+              </div>
             </div>
-            <div className="text-right text-xs text-gray-500">
-              <div>Powered by <span className="font-semibold text-blue-600">Raindrop MCP</span></div>
-            </div>
+            <Badge variant="secondary" className="hidden sm:flex items-center gap-1">
+              <Sparkles className="w-3 h-3" />
+              Raindrop MCP
+            </Badge>
           </div>
         </div>
       </header>
@@ -123,193 +133,223 @@ export default function ShopPage() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Search Box */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-gray-100">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            What are you looking for today?
-          </h2>
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
-              placeholder="e.g., I want a quiet mechanical keyboard under $100 for work"
-              className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-            />
-            <button
-              onClick={handleSearch}
-              disabled={loading || !query.trim()}
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:from-purple-700 hover:to-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? 'Searching...' : 'Search'}
-            </button>
-          </div>
-          
-          <div className="mt-4 flex flex-wrap gap-2">
-            <p className="text-sm text-gray-500 w-full mb-1">Quick searches:</p>
-            {[
-              'quiet keyboard under $100',
-              'ergonomic office chair',
-              'budget gaming monitor'
-            ].map((suggestion) => (
-              <button
-                key={suggestion}
-                onClick={() => setQuery(suggestion)}
-                className="text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700"
+        <Card className="mb-8 shadow-xl border-0 bg-white/90 backdrop-blur">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Search className="w-5 h-5" />
+              What are you looking for today?
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex gap-3">
+              <Input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+                placeholder="e.g., I want a quiet mechanical keyboard under $100 for work"
+                className="h-12"
+              />
+              <Button
+                onClick={handleSearch}
+                disabled={loading || !query.trim()}
+                className="h-12 px-8 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
               >
-                {suggestion}
-              </button>
-            ))}
-          </div>
-        </div>
+                {loading ? (
+                  <>
+                    <Sparkles className="w-4 h-4 animate-spin mr-2" />
+                    Searching...
+                  </>
+                ) : (
+                  <>
+                    <Search className="w-4 h-4 mr-2" />
+                    Search
+                  </>
+                )}
+              </Button>
+            </div>
+            
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs text-muted-foreground">Quick searches:</span>
+              {[
+                'quiet keyboard under $100',
+                'ergonomic office chair',
+                'budget gaming monitor'
+              ].map((suggestion) => (
+                <Button
+                  key={suggestion}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setQuery(suggestion)}
+                  className="h-7 text-xs"
+                >
+                  {suggestion}
+                </Button>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Context Message */}
         {contextMessage && (
-          <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
-            <p className="text-purple-900">
-              <strong>💡 {contextMessage}</strong>
-            </p>
-          </div>
+          <Card className="mb-6 border-purple-200 bg-purple-50">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-3">
+                <Lightbulb className="w-5 h-5 text-purple-600 flex-shrink-0 mt-0.5" />
+                <p className="text-purple-900 font-medium">{contextMessage}</p>
+              </div>
+            </CardContent>
+          </Card>
         )}
 
         {/* Recommendations */}
         {recommendations.length > 0 && (
           <div className="space-y-6">
-            <h3 className="text-2xl font-bold text-gray-900">
+            <h3 className="text-2xl font-bold flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-primary" />
               Here are my top picks for you:
             </h3>
 
             {recommendations.map((rec, index) => (
-              <div
-                key={rec.product.id}
-                className="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow"
-              >
-                <div className="flex gap-6">
-                  <div className="w-48 h-36 flex-shrink-0 bg-gray-100 rounded-lg overflow-hidden">
-                    <img
-                      src={rec.product.image_url}
-                      alt={rec.product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start mb-2">
-                      <div>
-                        <span className="inline-block px-2 py-1 text-xs font-semibold bg-purple-100 text-purple-700 rounded mb-2">
-                          #{index + 1} Recommendation
-                        </span>
-                        <h4 className="text-xl font-bold text-gray-900">{rec.product.name}</h4>
-                        <p className="text-sm text-gray-600">{rec.product.brand}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-3xl font-bold text-purple-600">
-                          ${rec.product.price}
-                        </p>
-                      </div>
+              <Card key={rec.product.id} className="shadow-xl hover:shadow-2xl transition-shadow border-0 bg-white/90 backdrop-blur">
+                <CardContent className="p-6">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    {/* Product Image */}
+                    <div className="w-full md:w-48 h-36 flex-shrink-0 bg-muted rounded-lg overflow-hidden">
+                      <img
+                        src={rec.product.image_url}
+                        alt={rec.product.name}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
 
-                    <div className="space-y-3 mb-4">
-                      <div className="bg-blue-50 p-3 rounded-lg">
-                        <p className="text-sm font-semibold text-blue-900 mb-1">Why this is great for you:</p>
-                        <p className="text-sm text-blue-800">{rec.whyForYou}</p>
+                    {/* Product Details */}
+                    <div className="flex-1 space-y-4">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <Badge className="mb-2">#{index + 1} Recommendation</Badge>
+                          <CardTitle className="text-xl">{rec.product.name}</CardTitle>
+                          <CardDescription>{rec.product.brand}</CardDescription>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-3xl font-bold text-primary">
+                            ${rec.product.price}
+                          </p>
+                        </div>
                       </div>
-                      
-                      <div className="text-sm text-gray-700">
+
+                      {/* Why For You */}
+                      <Card className="bg-blue-50 border-blue-200">
+                        <CardContent className="pt-4 pb-3">
+                          <p className="text-sm font-semibold text-blue-900 mb-1">Why this is great for you:</p>
+                          <p className="text-sm text-blue-800">{rec.whyForYou}</p>
+                        </CardContent>
+                      </Card>
+
+                      {/* Explanation */}
+                      <div className="text-sm text-muted-foreground">
                         <div dangerouslySetInnerHTML={{ __html: rec.explanation }} />
                       </div>
-                    </div>
 
-                    <div className="flex gap-3 items-center">
-                      <a
-                        href={rec.product.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-6 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg font-semibold hover:from-green-600 hover:to-green-700 transition-all"
-                      >
-                        Buy on Store →
-                      </a>
-                      <span className="text-xs text-gray-500">
-                        ✨ PersonaShop earns a small commission (demo)
-                      </span>
-                    </div>
+                      <Separator />
 
-                    {/* Feedback Buttons */}
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <p className="text-sm font-medium text-gray-700 mb-2">Help me learn:</p>
-                      <div className="flex flex-wrap gap-2">
-                        <button
-                          onClick={() => handleFeedback(rec.product.id, 1, 'love_it')}
-                          className={`text-xs px-3 py-1 rounded-full border-2 transition-all ${
-                            selectedFeedback[rec.product.id]?.type === 1
-                              ? 'border-green-500 bg-green-50 text-green-700'
-                              : 'border-gray-300 hover:border-green-500'
-                          }`}
+                      {/* Buy Button */}
+                      <div className="flex items-center gap-3">
+                        <Button
+                          asChild
+                          className="bg-green-600 hover:bg-green-700"
                         >
-                          👍 Love it
-                        </button>
-                        <button
-                          onClick={() => handleFeedback(rec.product.id, -1, 'too_expensive')}
-                          className={`text-xs px-3 py-1 rounded-full border-2 transition-all ${
-                            selectedFeedback[rec.product.id]?.reason === 'too_expensive'
-                              ? 'border-red-500 bg-red-50 text-red-700'
-                              : 'border-gray-300 hover:border-red-500'
-                          }`}
-                        >
-                          💰 Too expensive
-                        </button>
-                        <button
-                          onClick={() => handleFeedback(rec.product.id, -1, 'dont_like_look')}
-                          className={`text-xs px-3 py-1 rounded-full border-2 transition-all ${
-                            selectedFeedback[rec.product.id]?.reason === 'dont_like_look'
-                              ? 'border-red-500 bg-red-50 text-red-700'
-                              : 'border-gray-300 hover:border-red-500'
-                          }`}
-                        >
-                          😕 Don&apos;t like the look
-                        </button>
-                        <button
-                          onClick={() => handleFeedback(rec.product.id, 1, 'brand_preference')}
-                          className={`text-xs px-3 py-1 rounded-full border-2 transition-all ${
-                            selectedFeedback[rec.product.id]?.reason === 'brand_preference'
-                              ? 'border-green-500 bg-green-50 text-green-700'
-                              : 'border-gray-300 hover:border-green-500'
-                          }`}
-                        >
-                          🏷️ Love this brand
-                        </button>
-                        <button
-                          onClick={() => handleFeedback(rec.product.id, 1, 'love_sustainability')}
-                          className={`text-xs px-3 py-1 rounded-full border-2 transition-all ${
-                            selectedFeedback[rec.product.id]?.reason === 'love_sustainability'
-                              ? 'border-green-500 bg-green-50 text-green-700'
-                              : 'border-gray-300 hover:border-green-500'
-                          }`}
-                        >
-                          🌱 Eco-friendly
-                        </button>
+                          <a
+                            href={rec.product.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Buy on Store
+                            <ExternalLink className="w-4 h-4 ml-2" />
+                          </a>
+                        </Button>
+                        <span className="text-xs text-muted-foreground">
+                          ✨ PersonaShop earns a small commission (demo)
+                        </span>
+                      </div>
+
+                      {/* Feedback Buttons */}
+                      <div className="pt-4 border-t">
+                        <p className="text-sm font-medium mb-3">Help me learn:</p>
+                        <div className="flex flex-wrap gap-2">
+                          <Button
+                            variant={selectedFeedback[rec.product.id]?.type === 1 ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handleFeedback(rec.product.id, 1, 'love_it')}
+                            className="h-8"
+                          >
+                            <ThumbsUp className="w-3 h-3 mr-1" />
+                            Love it
+                          </Button>
+                          <Button
+                            variant={selectedFeedback[rec.product.id]?.reason === 'too_expensive' ? "destructive" : "outline"}
+                            size="sm"
+                            onClick={() => handleFeedback(rec.product.id, -1, 'too_expensive')}
+                            className="h-8"
+                          >
+                            <DollarSign className="w-3 h-3 mr-1" />
+                            Too expensive
+                          </Button>
+                          <Button
+                            variant={selectedFeedback[rec.product.id]?.reason === 'dont_like_look' ? "destructive" : "outline"}
+                            size="sm"
+                            onClick={() => handleFeedback(rec.product.id, -1, 'dont_like_look')}
+                            className="h-8"
+                          >
+                            <Frown className="w-3 h-3 mr-1" />
+                            Don&apos;t like the look
+                          </Button>
+                          <Button
+                            variant={selectedFeedback[rec.product.id]?.reason === 'brand_preference' ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handleFeedback(rec.product.id, 1, 'brand_preference')}
+                            className="h-8"
+                          >
+                            <Tag className="w-3 h-3 mr-1" />
+                            Love this brand
+                          </Button>
+                          <Button
+                            variant={selectedFeedback[rec.product.id]?.reason === 'love_sustainability' ? "default" : "outline"}
+                            size="sm"
+                            onClick={() => handleFeedback(rec.product.id, 1, 'love_sustainability')}
+                            className="h-8"
+                          >
+                            <Leaf className="w-3 h-3 mr-1" />
+                            Eco-friendly
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         )}
 
         {recommendations.length === 0 && !loading && (
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600">
-              Start by searching for what you need! 🔍
-            </p>
-          </div>
+          <Card className="text-center py-12">
+            <CardContent>
+              <ShoppingBag className="w-16 h-16 mx-auto mb-4 text-muted-foreground" />
+              <p className="text-xl text-muted-foreground">
+                Start by searching for what you need! 🔍
+              </p>
+            </CardContent>
+          </Card>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 mt-12">
-        <div className="text-center text-sm text-gray-500">
-          <p>Powered by Raindrop SmartInference • Hosted on Vultr</p>
+      <footer className="mt-12 py-8 border-t bg-white/50 backdrop-blur">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-sm text-muted-foreground">
+            Powered by Raindrop SmartInference • Hosted on Vultr
+          </p>
         </div>
       </footer>
     </div>
